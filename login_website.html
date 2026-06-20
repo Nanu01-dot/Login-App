@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureAuth - Login & Registration System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                🔐 SecureAuth
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="#" onclick="showDashboard(); return false;" class="nav-link">Dashboard</a>
+                <a href="#" onclick="showProfile(); return false;" class="nav-link">Profile</a>
+                <button onclick="logout()" class="logout-btn" id="logoutBtn" style="display:none;">Logout</button>
+                <a href="#" onclick="showLogin(); return false;" class="nav-link" id="loginLink">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="page active">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Welcome Back</h2>
+                    <p>Sign in to your account</p>
+                </div>
+
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="loginEmail" 
+                            name="email" 
+                            placeholder="Enter your email"
+                            required
+                        >
+                        <span class="error-message" id="loginEmailError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <div class="password-group">
+                            <input 
+                                type="password" 
+                                id="loginPassword" 
+                                name="password" 
+                                placeholder="Enter your password"
+                                required
+                            >
+                            <button type="button" onclick="togglePassword('loginPassword')" class="toggle-password">
+                                👁️
+                            </button>
+                        </div>
+                        <span class="error-message" id="loginPasswordError"></span>
+                    </div>
+
+                    <div class="form-group checkbox">
+                        <input 
+                            type="checkbox" 
+                            id="rememberMe" 
+                            name="rememberMe"
+                        >
+                        <label for="rememberMe">Remember me</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+
+                    <div class="success-message" id="loginSuccess" style="display:none;">
+                        ✅ Login successful! Redirecting...
+                    </div>
+
+                    <div class="error-message" id="loginError"></div>
+                </form>
+
+                <div class="form-footer">
+                    <p>Don't have an account? <a href="#" onclick="showSignup(); return false;">Sign Up</a></p>
+                    <a href="#" onclick="showForgotPassword(); return false;">Forgot password?</a>
+                </div>
+            </div>
+
+            <div class="form-image">
+                <div class="illustration">
+                    <div class="lock-icon">🔒</div>
+                    <h3>Secure Login</h3>
+                    <p>Your data is protected with industry-standard encryption</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Page -->
+    <div id="signupPage" class="page">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Create Account</h2>
+                    <p>Join us today and get started</p>
+                </div>
+
+                <form id="signupForm" onsubmit="handleSignup(event)">
+                    <div class="form-group">
+                        <label for="signupName">Full Name</label>
+                        <input 
+                            type="text" 
+                            id="signupName" 
+                            name="name" 
+                            placeholder="Enter your full name"
+                            required
+                        >
+                        <span class="error-message" id="signupNameError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupEmail">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="signupEmail" 
+                            name="email" 
+                            placeholder="Enter your email"
+                            required
+                        >
+                        <span class="error-message" id="signupEmailError"></span>
+                        <span class="info-message" id="emailVerification"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <div class="password-group">
+                            <input 
+                                type="password" 
+                                id="signupPassword" 
+                                name="password" 
+                                placeholder="Create a strong password"
+                                required
+                                oninput="checkPasswordStrength()"
+                            >
+                            <button type="button" onclick="togglePassword('signupPassword')" class="toggle-password">
+                                👁️
+                            </button>
+                        </div>
+                        <div class="password-strength" id="strengthBar"></div>
+                        <span class="info-message" id="passwordStrength"></span>
+                        <span class="error-message" id="signupPasswordError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupConfirmPassword">Confirm Password</label>
+                        <div class="password-group">
+                            <input 
+                                type="password" 
+                                id="signupConfirmPassword" 
+                                name="confirmPassword" 
+                                placeholder="Confirm your password"
+                                required
+                            >
+                            <button type="button" onclick="togglePassword('signupConfirmPassword')" class="toggle-password">
+                                👁️
+                            </button>
+                        </div>
+                        <span class="error-message" id="confirmPasswordError"></span>
+                    </div>
+
+                    <div class="form-group checkbox">
+                        <input 
+                            type="checkbox" 
+                            id="agreeTerms" 
+                            name="agreeTerms"
+                            required
+                        >
+                        <label for="agreeTerms">I agree to the Terms and Conditions</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+
+                    <div class="success-message" id="signupSuccess" style="display:none;">
+                        ✅ Account created successfully! Logging you in...
+                    </div>
+
+                    <div class="error-message" id="signupError"></div>
+                </form>
+
+                <div class="form-footer">
+                    <p>Already have an account? <a href="#" onclick="showLogin(); return false;">Sign In</a></p>
+                </div>
+            </div>
+
+            <div class="form-image">
+                <div class="illustration">
+                    <div class="signup-icon">📋</div>
+                    <h3>New Member</h3>
+                    <p>Join thousands of secure users</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Page -->
+    <div id="forgotPasswordPage" class="page">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Reset Password</h2>
+                    <p>We'll help you get back into your account</p>
+                </div>
+
+                <form id="forgotPasswordForm" onsubmit="handleForgotPassword(event)">
+                    <div class="form-group">
+                        <label for="resetEmail">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="resetEmail" 
+                            name="email" 
+                            placeholder="Enter your email"
+                            required
+                        >
+                        <span class="error-message" id="resetEmailError"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Send Reset Link</button>
+
+                    <div class="success-message" id="resetSuccess" style="display:none;">
+                        ✅ Reset link sent to your email!
+                    </div>
+
+                    <div class="error-message" id="resetError"></div>
+                </form>
+
+                <div class="form-footer">
+                    <a href="#" onclick="showLogin(); return false;">Back to Login</a>
+                </div>
+            </div>
+
+            <div class="form-image">
+                <div class="illustration">
+                    <div class="reset-icon">🔑</div>
+                    <h3>Reset Password</h3>
+                    <p>Secure password recovery</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboardPage" class="page">
+        <div class="container dashboard-container">
+            <div class="welcome-section">
+                <h1>Welcome, <span id="welcomeName">User</span>!</h1>
+                <p>You are successfully logged in</p>
+                <div class="session-info">
+                    <p>📧 Email: <strong id="sessionEmail">-</strong></p>
+                    <p>🕐 Login Time: <strong id="loginTime">-</strong></p>
+                    <p>📱 Session: <strong id="sessionStatus">Active</strong></p>
+                </div>
+            </div>
+
+            <div class="dashboard-cards">
+                <div class="card">
+                    <div class="card-icon">👤</div>
+                    <h3>Profile</h3>
+                    <p>View and edit your profile</p>
+                    <button onclick="showProfile()" class="btn btn-secondary">View Profile</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🔒</div>
+                    <h3>Security</h3>
+                    <p>Manage your password and security settings</p>
+                    <button onclick="showSecurity()" class="btn btn-secondary">Security Settings</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">⚙️</div>
+                    <h3>Settings</h3>
+                    <p>Customize your preferences</p>
+                    <button onclick="showSettings()" class="btn btn-secondary">Go to Settings</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">ℹ️</div>
+                    <h3>About</h3>
+                    <p>Learn more about SecureAuth</p>
+                    <button onclick="showAbout()" class="btn btn-secondary">Learn More</button>
+                </div>
+            </div>
+
+            <div class="logout-section">
+                <button onclick="logout()" class="btn btn-danger">🚪 Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Page -->
+    <div id="profilePage" class="page">
+        <div class="container profile-container">
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="profile-avatar">👤</div>
+                    <h2 id="profileName">User Name</h2>
+                    <p id="profileEmail">user@example.com</p>
+                </div>
+
+                <div class="profile-info">
+                    <h3>Account Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Full Name</label>
+                            <p id="displayName">-</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Email</label>
+                            <p id="displayEmail">-</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Account Created</label>
+                            <p id="accountCreated">-</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Last Login</label>
+                            <p id="lastLogin">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-actions">
+                    <button onclick="editProfile()" class="btn btn-primary">Edit Profile</button>
+                    <button onclick="showDashboard()" class="btn btn-secondary">Back to Dashboard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security Settings Page -->
+    <div id="securityPage" class="page">
+        <div class="container security-container">
+            <div class="security-card">
+                <h2>Security Settings</h2>
+                
+                <div class="security-section">
+                    <h3>Change Password</h3>
+                    <form id="changePasswordForm" onsubmit="handleChangePassword(event)">
+                        <div class="form-group">
+                            <label for="currentPassword">Current Password</label>
+                            <input type="password" id="currentPassword" required>
+                            <span class="error-message" id="currentPasswordError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" id="newPassword" required>
+                            <span class="error-message" id="newPasswordError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmNewPassword">Confirm New Password</label>
+                            <input type="password" id="confirmNewPassword" required>
+                            <span class="error-message" id="confirmNewPasswordError"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Update Password</button>
+                        <div class="success-message" id="passwordChangeSuccess" style="display:none;">
+                            ✅ Password updated successfully!
+                        </div>
+                    </form>
+                </div>
+
+                <div class="security-section">
+                    <h3>Two-Factor Authentication</h3>
+                    <p>Add an extra layer of security to your account</p>
+                    <button onclick="enable2FA()" class="btn btn-secondary">Enable 2FA</button>
+                </div>
+
+                <div class="security-section">
+                    <h3>Login History</h3>
+                    <div id="loginHistory">
+                        <p>Recent logins will appear here</p>
+                    </div>
+                </div>
+
+                <button onclick="showDashboard()" class="btn btn-secondary">Back to Dashboard</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Page -->
+    <div id="settingsPage" class="page">
+        <div class="container settings-container">
+            <div class="settings-card">
+                <h2>Settings</h2>
+                
+                <div class="settings-section">
+                    <h3>Notifications</h3>
+                    <div class="setting-item">
+                        <label>Email Notifications</label>
+                        <input type="checkbox" id="emailNotifications" checked>
+                    </div>
+                    <div class="setting-item">
+                        <label>Security Alerts</label>
+                        <input type="checkbox" id="securityAlerts" checked>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Appearance</h3>
+                    <div class="setting-item">
+                        <label>Dark Mode</label>
+                        <input type="checkbox" id="darkMode" onchange="toggleDarkMode()">
+                    </div>
+                    <div class="setting-item">
+                        <label>Font Size</label>
+                        <select id="fontSize">
+                            <option value="small">Small</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="large">Large</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Danger Zone</h3>
+                    <button onclick="deleteAccount()" class="btn btn-danger">Delete Account</button>
+                </div>
+
+                <button onclick="showDashboard()" class="btn btn-secondary">Back to Dashboard</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div id="aboutPage" class="page">
+        <div class="container about-container">
+            <div class="about-card">
+                <h2>About SecureAuth</h2>
+                <div class="about-content">
+                    <h3>Welcome to SecureAuth</h3>
+                    <p>SecureAuth is a modern, secure authentication system designed to protect your account and personal information.</p>
+                    
+                    <h3>Features</h3>
+                    <ul>
+                        <li>✅ Secure login and registration</li>
+                        <li>✅ Password encryption</li>
+                        <li>✅ Email verification</li>
+                        <li>✅ Session management</li>
+                        <li>✅ Two-factor authentication</li>
+                        <li>✅ Password strength indicator</li>
+                    </ul>
+
+                    <h3>Security</h3>
+                    <p>We take security seriously. All passwords are encrypted and stored securely. Your data is protected with industry-standard encryption protocols.</p>
+
+                    <h3>Version</h3>
+                    <p>SecureAuth v1.0.0</p>
+
+                    <h3>Contact</h3>
+                    <p>📧 support@secureauth.com</p>
+                    <p>🌐 www.secureauth.com</p>
+                </div>
+
+                <button onclick="showDashboard()" class="btn btn-secondary">Back to Dashboard</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

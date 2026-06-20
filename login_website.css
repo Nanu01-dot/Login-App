@@ -1,0 +1,817 @@
+/* styles.css - Complete styling for login website */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #6366f1;
+    --secondary-color: #ec4899;
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    --warning-color: #f59e0b;
+    --dark-color: #1f2937;
+    --light-color: #f9fafb;
+    --border-color: #e5e7eb;
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode {
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    color: #f3f4f6;
+}
+
+/* ==================== NAVBAR ==================== */
+.navbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 1rem 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #666;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+.logout-btn {
+    background: var(--danger-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
+/* ==================== CONTAINER ==================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.form-container {
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    flex: 1;
+}
+
+/* ==================== PAGES ==================== */
+.page {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================== LOGIN/SIGNUP FORM ==================== */
+.container {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+}
+
+.form-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.form-header h2 {
+    color: var(--dark-color);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.form-header p {
+    color: #999;
+    font-size: 0.95rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-group.checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.form-group.checkbox input[type="checkbox"] {
+    width: auto;
+    margin-right: 0.5rem;
+    cursor: pointer;
+}
+
+.form-group.checkbox label {
+    margin-bottom: 0;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+/* ==================== PASSWORD STRENGTH ==================== */
+.password-group {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.password-group input {
+    flex: 1;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.toggle-password:hover {
+    transform: scale(1.2);
+}
+
+.password-strength {
+    height: 5px;
+    background: #e5e7eb;
+    border-radius: 5px;
+    margin-top: 0.5rem;
+    overflow: hidden;
+}
+
+.password-strength.weak {
+    background: linear-gradient(to right, #ef4444 50%, #e5e7eb 50%);
+}
+
+.password-strength.medium {
+    background: linear-gradient(to right, #f59e0b 70%, #e5e7eb 70%);
+}
+
+.password-strength.strong {
+    background: linear-gradient(to right, #10b981 100%, #e5e7eb 100%);
+}
+
+/* ==================== BUTTONS ==================== */
+.btn {
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-primary {
+    width: 100%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+}
+
+.btn-secondary {
+    background: var(--light-color);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-secondary:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-danger {
+    background: var(--danger-color);
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #dc2626;
+}
+
+/* ==================== MESSAGES ==================== */
+.error-message {
+    color: var(--danger-color);
+    font-size: 0.85rem;
+    display: block;
+    margin-top: 0.3rem;
+    min-height: 1.2rem;
+}
+
+.success-message {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success-color);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--success-color);
+    margin-bottom: 1rem;
+    display: none;
+}
+
+.success-message.show {
+    display: block;
+}
+
+.info-message {
+    color: var(--primary-color);
+    font-size: 0.85rem;
+    display: block;
+    margin-top: 0.3rem;
+    min-height: 1.2rem;
+}
+
+/* ==================== FORM FOOTER ==================== */
+.form-footer {
+    margin-top: 2rem;
+    text-align: center;
+    color: #666;
+}
+
+.form-footer p {
+    margin-bottom: 0.5rem;
+}
+
+.form-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.form-footer a:hover {
+    color: var(--secondary-color);
+}
+
+/* ==================== FORM IMAGE ==================== */
+.form-image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.illustration {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 3rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.illustration div {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.illustration h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.illustration p {
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+/* ==================== DASHBOARD ==================== */
+.dashboard-container {
+    max-width: 1000px;
+}
+
+.welcome-section {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 3rem;
+    border-radius: 15px;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow);
+}
+
+.welcome-section h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-section p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.session-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.session-info p {
+    margin: 0;
+    text-align: left;
+}
+
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow);
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.card h3 {
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+.card p {
+    color: #666;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.logout-section {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* ==================== PROFILE PAGE ==================== */
+.profile-container {
+    max-width: 600px;
+}
+
+.profile-card {
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.profile-avatar {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.profile-header h2 {
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+.profile-header p {
+    color: #666;
+}
+
+.profile-info {
+    margin-bottom: 2rem;
+}
+
+.profile-info h3 {
+    color: var(--dark-color);
+    margin-bottom: 1.5rem;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.info-item {
+    background: var(--light-color);
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.info-item label {
+    display: block;
+    color: #666;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.info-item p {
+    color: var(--dark-color);
+    font-weight: 500;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.profile-actions .btn {
+    flex: 1;
+}
+
+/* ==================== SECURITY PAGE ==================== */
+.security-container {
+    max-width: 700px;
+}
+
+.security-card {
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+}
+
+.security-card h2 {
+    color: var(--dark-color);
+    margin-bottom: 2rem;
+}
+
+.security-section {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.security-section h3 {
+    color: var(--dark-color);
+    margin-bottom: 1rem;
+}
+
+.security-section p {
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+#loginHistory {
+    background: var(--light-color);
+    padding: 1rem;
+    border-radius: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* ==================== SETTINGS PAGE ==================== */
+.settings-container {
+    max-width: 700px;
+}
+
+.settings-card {
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+}
+
+.settings-card h2 {
+    color: var(--dark-color);
+    margin-bottom: 2rem;
+}
+
+.settings-section {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.settings-section h3 {
+    color: var(--dark-color);
+    margin-bottom: 1.5rem;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.setting-item label {
+    color: var(--dark-color);
+    font-weight: 500;
+}
+
+.setting-item input[type="checkbox"] {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+
+.setting-item select {
+    padding: 0.5rem;
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* ==================== ABOUT PAGE ==================== */
+.about-container {
+    max-width: 700px;
+}
+
+.about-card {
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+}
+
+.about-card h2 {
+    color: var(--dark-color);
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 1rem;
+}
+
+.about-content h3 {
+    color: var(--dark-color);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.about-content p,
+.about-content ul {
+    color: #666;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.about-content ul {
+    list-style-position: inside;
+}
+
+.about-content li {
+    margin-bottom: 0.5rem;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .form-container {
+        padding: 2rem;
+    }
+
+    .form-image {
+        display: none;
+    }
+
+    .nav-links {
+        gap: 1rem;
+    }
+
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .session-info {
+        grid-template-columns: 1fr;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-actions {
+        flex-direction: column;
+    }
+
+    .form-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .welcome-section {
+        padding: 2rem;
+    }
+
+    .welcome-section h1 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 1rem 0;
+    }
+
+    .nav-container {
+        padding: 0 1rem;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .container {
+        padding: 1.5rem 1rem;
+    }
+
+    .form-container {
+        padding: 1.5rem;
+    }
+
+    .btn {
+        padding: 0.6rem 1rem;
+    }
+
+    .illustration {
+        padding: 2rem;
+    }
+
+    .illustration div {
+        font-size: 3rem;
+    }
+}
+
+/* ==================== DARK MODE ==================== */
+body.dark-mode .navbar {
+    background: rgba(31, 41, 55, 0.95);
+}
+
+body.dark-mode .nav-link {
+    color: #d1d5db;
+}
+
+body.dark-mode .form-container,
+body.dark-mode .card,
+body.dark-mode .profile-card,
+body.dark-mode .security-card,
+body.dark-mode .settings-card,
+body.dark-mode .about-card {
+    background: #1f2937;
+    color: #f3f4f6;
+}
+
+body.dark-mode .form-group label,
+body.dark-mode .form-header h2,
+body.dark-mode .card h3,
+body.dark-mode .profile-header h2,
+body.dark-mode .security-card h2,
+body.dark-mode .settings-card h2,
+body.dark-mode .about-card h2,
+body.dark-mode h3 {
+    color: #f3f4f6;
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group select {
+    background: #374151;
+    border-color: #4b5563;
+    color: #f3f4f6;
+}
+
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group select:focus {
+    border-color: var(--primary-color);
+}
+
+body.dark-mode .info-item {
+    background: #374151;
+    color: #f3f4f6;
+}
+
+body.dark-mode #loginHistory {
+    background: #374151;
+    color: #f3f4f6;
+}
+
+body.dark-mode .security-section,
+body.dark-mode .settings-section {
+    border-bottom-color: #4b5563;
+}
+
+body.dark-mode .form-footer p,
+body.dark-mode .card p,
+body.dark-mode .profile-header p,
+body.dark-mode .security-section p,
+body.dark-mode .about-content p {
+    color: #d1d5db;
+}
